@@ -212,10 +212,10 @@
     // Creates a results variable with starting value of the accumulator
     var result = accumulator;
 
+    // Loops through all remaining indexes in the collection 
+    // (this does not include the first item if there was no accumulator
+    //  as it has been shifted off of the collection already)
     if (Array.isArray(collection)){
-      // Loops through all remaining indexes in the collection 
-      // (this does not include the first item if there was no accumulator
-      //  as it has been shifted off of the collection already)
       for (var i = 0; i < collection.length; i++){
         result = iterator(result, collection[i]);
       }
@@ -260,6 +260,19 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+
+    // Declares result variable with inital value of false.
+    var result = true;
+
+    // If no iterator is included, defines iterator to push through values.
+    if (iterator === undefined) iterator = _.identity;
+
+    // Checks each value against iterator. If any fail, changes result to false.
+    _.each(collection, function(item){
+      if (!iterator(item)) result = false;
+    });
+
+    return result;
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
