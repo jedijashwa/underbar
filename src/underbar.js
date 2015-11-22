@@ -212,14 +212,20 @@
     // Creates a results variable with starting value of the accumulator
     var result = accumulator;
 
-    // Loops through all remaining indexes in the collection 
-    // (this does not include the first item if there was no accumulator
-    //  as it has been shifted off of the collection already)
-    for (var i = 0; i < collection.length; i++){
-
-      result = iterator(result, collection[i]);
+    if (Array.isArray(collection)){
+      // Loops through all remaining indexes in the collection 
+      // (this does not include the first item if there was no accumulator
+      //  as it has been shifted off of the collection already)
+      for (var i = 0; i < collection.length; i++){
+        result = iterator(result, collection[i]);
+      }
+      return result;
+    } else {
+      for (var i in collection){
+        result = iterator(result, collection[i]);
+      }
+      return result;
     }
-    return result;
   };
 
 // So close yet so far to an elegant recusrsive approach to this problem.
