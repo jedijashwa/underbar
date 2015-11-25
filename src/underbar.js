@@ -261,7 +261,7 @@
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
 
-    // Declares result variable with inital value of false.
+    // Declares result variable with inital value of true.
     var result = true;
 
     // If no iterator is included, defines iterator to push through values.
@@ -279,6 +279,14 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+
+    // Declares result variable with inital value of false.
+    var result = false;
+
+    // If no iterator is included, defines iterator to push through values.
+    if (iterator === undefined) iterator = _.identity;
+
+    
   };
 
 
