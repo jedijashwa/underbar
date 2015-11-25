@@ -279,14 +279,19 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
-
     // Declares result variable with inital value of false.
     var result = false;
 
     // If no iterator is included, defines iterator to push through values.
     if (iterator === undefined) iterator = _.identity;
-
     
+    // Checks each value against iterator. If any pass, changes result to true.
+    _.each(collection, function(item){
+      if (iterator(item)) result = true;
+    });
+
+    return result;
+
   };
 
 
@@ -308,12 +313,40 @@
   //   }, {
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
+
   _.extend = function(obj) {
+
+    // loops through all arguments passed in beyond the initial object
+    for (var a = 1; a < arguments.length; a++){
+
+      // loops through each property in those arguments
+      for (var item in arguments[a]){
+
+        // assigns each property to a property by the same name in the initial object
+        obj[item] = arguments[a][item];
+      };
+    };
+
+    return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+
+    // loops through all arguments passed in beyond the initial object
+    for (var a = 1; a < arguments.length; a++){
+
+      // loops through each property in those arguments
+      for (var item in arguments[a]){
+
+        // assigns each property to a property by the same name in the 
+        // initial object if that property is not already assigned
+        if (obj[item] === undefined) obj[item] = arguments[a][item];
+      };
+    };
+
+    return obj;
   };
 
 
