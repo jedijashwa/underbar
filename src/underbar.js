@@ -449,10 +449,22 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
-    var original = array.slice(0,array.length), shuffled = [];
+    // Defines length variable, copies the provided array to original, 
+    // creates an empty shuffled array, and an unasigned variable to be used
+    // for the random indexes
+    var length = array.length, original = array.slice(0), shuffled = [], rIndex;
+
     // loop for 1 to length of original array.
-    // choose a random number between 0 and array - 1;
-    // pop that indexed item off original aray and push it onto shuffled
+    for (var i = 1; i <= length; i++) {
+      // choose a random number between 0 and array.length - 1;
+      rIndex = Math.floor(Math.random() * (original.length - 1));
+      
+      // Pushes the item at the random index to the shuffled array. 
+      shuffled.push(original[rIndex]);
+
+      // Removes the random indexed item from the starting array.
+      original.splice(rIndex, 1);
+    };
     return shuffled;
   };
 
