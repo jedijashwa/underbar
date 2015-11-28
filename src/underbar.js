@@ -390,6 +390,33 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    // creates an empty object to store past results
+    var pastResults = {};
+
+    // returns the modified function
+    return function() {
+      // Creates empty string as starting point for the key for pastResults
+      // then adds each argument to key. Tried using toString function but
+      // gave unexpected results.
+      var key = "";
+
+      _.each(arguments, function(arg) {
+        key += arg + ", ";
+      });
+
+      // checks to see if the key for the given arguments is in pastResults
+      if (pastResults.hasOwnProperty(key)) {
+        // returns results as previously calculated
+        return pastResults[key];
+      } else {
+        // Calculates the results then adds the results to pastResults.
+        // Struggled with this section for days not thinking about the
+        // fact that the functions were not expecting an array for the
+        // arguments. Had to look up how to apply an array of arguments.
+        return pastResults[key] = func.apply(this, arguments);
+      };
+    };
+
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -399,6 +426,15 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    // Saves arguments as an array and then removes first two arguments.
+    var args = Array.from(arguments)
+    args.shift();
+    args.shift();
+
+    // Uses setTimeout to delay return of the function.
+    setTimeout(function (){
+      return func.apply(this, args);
+    }, wait);
   };
 
 
@@ -413,6 +449,11 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    var original = array.slice(0,array.length), shuffled = [];
+    // loop for 1 to length of original array.
+    // choose a random number between 0 and array - 1;
+    // pop that indexed item off original aray and push it onto shuffled
+    return shuffled;
   };
 
 
